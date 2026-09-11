@@ -1,0 +1,37 @@
+{
+  "name": "prox-omnipro-agent",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.6"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "ingest": "node --experimental-strip-types scripts/ingest.ts",
+    "ingest:render": "node --experimental-strip-types scripts/ingest.ts render",
+    "ingest:extract": "node --experimental-strip-types scripts/ingest.ts extract",
+    "ingest:bundle": "node --experimental-strip-types scripts/ingest.ts bundle",
+    "ingest:status": "node --experimental-strip-types scripts/ingest.ts status",
+    "test:bundle": "node --experimental-strip-types scripts/lib/bundle.test.ts",
+    "eval": "node --experimental-strip-types --env-file-if-exists=.env eval/run.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.3.268",
+    "@anthropic-ai/sdk": "^0.125.0",
+    "next": "14.2.15",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-markdown": "^9.0.1",
+    "remark-gfm": "^4.0.0",
+    "zod": "^4.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.9.0"
+  }
+}
