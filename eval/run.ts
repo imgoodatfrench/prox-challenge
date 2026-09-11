@@ -183,6 +183,14 @@ async function main() {
     for (const ck of checks) {
       console.log(`    ${mark(ck.pass)} ${ck.name.padEnd(9)} ${DIM}${ck.detail}${RESET}`);
     }
+    // EVAL_VERBOSE=1 dumps the agent's actual answer so you can diagnose a
+    // failure without re-reading the manual yourself.
+    if (process.env.EVAL_VERBOSE && !run.error) {
+      const kinds = run.parts.map((p) => p.kind).join(", ") || "none";
+      console.log(`    ${DIM}Q: ${c.q}${RESET}`);
+      console.log(`    ${DIM}parts: [${kinds}]${RESET}`);
+      console.log(run.text.split("\n").map((l) => `    │ ${l}`).join("\n"));
+    }
   }
 
   const total = cases.length;
