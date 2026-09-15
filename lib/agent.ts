@@ -91,6 +91,15 @@ export function runAgent({ prompt, sessionId, emit, signal }: RunAgentParams) {
       // rather than hang on a permission prompt.
       permissionMode: "bypassPermissions",
       allowDangerouslySkipPermissions: true,
+      // The runtime gives an MCP server 5s to connect before marking it failed
+      // (after which every tool call returns "not available in this context").
+      // On a cold or CPU-throttled Railway container the in-process handshake
+      // can miss that window, so give it more room. `env` REPLACES the child
+      // env, hence the spread.
+      env: {
+        ...process.env,
+        MCP_CONNECT_TIMEOUT_MS: process.env.MCP_CONNECT_TIMEOUT_MS || "30000",
+      },
       abortController,
       ...(sessionId ? { resume: sessionId } : {}),
     },

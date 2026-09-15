@@ -165,6 +165,13 @@ export function createManualServer(emit: (part: Part) => void) {
     name: MANUAL_SERVER,
     version: "1.0.0",
     tools: [getPageImage, showManualImage, renderDiagram, renderArtifact],
+    // Always put these four tools in the prompt. Without this the runtime may
+    // (a) defer them behind ToolSearch — which we disable via `tools: []`, so
+    // the model could never load them — and (b) start the first model call
+    // before this in-process server has finished connecting (MCP startup is
+    // non-blocking by default). alwaysLoad also makes startup wait for the
+    // connection, so the tools are present when the turn-1 prompt is built.
+    alwaysLoad: true,
   });
 }
 

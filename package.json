@@ -16,6 +16,8 @@
     "ingest:bundle": "node --experimental-strip-types scripts/ingest.ts bundle",
     "ingest:status": "node --experimental-strip-types scripts/ingest.ts status",
     "test:bundle": "node --experimental-strip-types scripts/lib/bundle.test.ts",
+    "test:guards": "node --experimental-strip-types lib/turn-guards.test.ts",
+    "test": "npm run test:bundle && npm run test:guards",
     "eval": "node --experimental-strip-types --env-file-if-exists=.env eval/run.ts"
   },
   "dependencies": {
